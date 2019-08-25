@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import _ from 'lodash';
 
 function getTR(
   item,
@@ -18,7 +19,9 @@ function getTR(
   nodeClassName,
   btnsStyle,
   btnsClassName,
-  lineColor
+  lineColor,
+  disableEditNodes,
+  onNodeClick
 ) {
   const children = allitems[item.id];
   const colspan = (children ? children.length : 1) * 2;
@@ -41,6 +44,7 @@ function getTR(
         <tr className='node'>
           <td colSpan={colspan}>
             <NodeBox
+              onNodeClick={onNodeClick}
               node={item}
               addNew={addNew}
               deleteNode={deleteNode}
@@ -54,6 +58,7 @@ function getTR(
               nodeClassName={nodeClassName}
               btnsStyle={btnsStyle}
               btnsClassName={btnsClassName}
+              disableEditNodes={disableEditNodes}
             />
           </td>
         </tr>
@@ -96,7 +101,9 @@ function getTR(
                   nodeClassName,
                   btnsStyle,
                   btnsClassName,
-                  lineColor
+                  lineColor,
+                  disableEditNodes,
+                  onNodeClick
                 )}
               </td>
             );
@@ -117,9 +124,6 @@ class OrgChart extends Component {
   }
 
   changeEditingNodeId = editingNodeId => {
-    const { disableEditNodes } = this.props;
-    if (disableEditNodes) return;
-
     if (editingNodeId !== this.state.editingNodeId) {
       this.setState({ editingNodeId: editingNodeId });
     }
@@ -148,7 +152,9 @@ class OrgChart extends Component {
             this.props.nodeClassName,
             this.props.btnsStyle,
             this.props.btnsClassName,
-            this.props.lineColor
+            this.props.lineColor,
+            this.props.disableEditNodes,
+            this.props.onNodeClick
           )}
         </div>
       );
@@ -164,6 +170,8 @@ OrgChart.propTypes = {
   deleteNode: PropTypes.func.isRequired,
   editNode: PropTypes.func.isRequired,
   editable: PropTypes.bool.isRequired,
+  disableEditNodes: PropTypes.bool,
+  onNodeClick: PropTypes.func,
 };
 
 class NodeBox extends Component {
@@ -194,6 +202,9 @@ class NodeBox extends Component {
   };
 
   editNode = () => {
+    const { disableEditNodes } = this.props;
+    if (disableEditNodes) return;
+
     this.setState({ editMode: true });
     this.props.changeEditingNodeId(this.state.node.id);
   };
@@ -231,6 +242,8 @@ class NodeBox extends Component {
       nodeClassName,
       btnsStyle,
       btnsClassName,
+      onNodeClick,
+      disableEditNodes,
     } = this.props;
 
     return (
@@ -255,14 +268,15 @@ class NodeBox extends Component {
           <div
             className={`node-box ${this.props.animation ? 'node-animation' : ''} ${nodeClassName}`}
             style={nodeStyle}
+            onClick={() => onNodeClick(node.id)}
           >
             {editable && (
               <div className={`org-node-btns ${btnsClassName}`} style={btnsStyle}>
                 <FontAwesomeIcon icon='plus' className='icon' onClick={this.addNewChild} />
-                {(node.ParentId !== null || (node.ParentId === null && rootEditable)) && (
+                {(node.ParentId !== null || (node.ParentId === null && rootEditable)) && !disableEditNodes && (
                   <FontAwesomeIcon icon='pencil-alt' className='icon' onClick={this.editNode} />
                 )}
-                {node.ParentId !== null && (
+                {node.ParentId !== null && !disableEditNodes && (
                   <FontAwesomeIcon icon='trash-alt' className='icon' onClick={this.deleteNode} />
                 )}
               </div>
@@ -275,7 +289,9 @@ class NodeBox extends Component {
               }
               className='node-name-box'
             >
-              <p className='node-name'>{_.truncate(node.title, { length: 35, omission: ' ...' })}</p>
+              <p className={`node-name ${onNodeClick ? 'node-clickable' : ''}`}>
+                {_.truncate(node.title, { length: 35, omission: ' ...' })}
+              </p>
             </div>
           </div>
         )}
@@ -292,6 +308,13 @@ NodeBox.propTypes = {
   editingNodeId: PropTypes.number.isRequired,
   changeEditingNodeId: PropTypes.func.isRequired,
   editable: PropTypes.bool.isRequired,
+  onNodeClick: PropTypes.func,
+  disableEditNodes: PropTypes.bool,
+};
+
+NodeBox.defaultProps = {
+  onNodeClick: () => {},
+  disableEditNodes: false,
 };
 
 class ClickOutsideHandler extends Component {

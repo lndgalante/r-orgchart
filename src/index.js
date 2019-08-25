@@ -1,4 +1,3 @@
-require('./style.css');
 import _ from 'lodash';
 
 import React, { Component } from 'react';
@@ -8,12 +7,9 @@ import PropTypes from 'prop-types';
 import OrgChart from './components/Orgchart.js';
 
 import fontawesome from '@fortawesome/fontawesome';
-import faCheck from '@fortawesome/fontawesome-free-solid/faCheck';
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
-import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
-import faFolder from '@fortawesome/fontawesome-free-solid/faFolder';
-import faPencilAlt from '@fortawesome/fontawesome-free-solid/faPencilAlt';
-import faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
+import { faCheck, faTimes, faPlus, faFolder, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
+import './style.css';
 
 fontawesome.library.add(faCheck, faTimes, faPlus, faFolder, faPencilAlt, faTrashAlt);
 
@@ -83,9 +79,6 @@ class Rorgchart extends React.Component {
   }
 
   edit = node => {
-    const { disableEditNodes } = this.props;
-    if (disableEditNodes) return;
-
     const editIdx = _.findIndex(this.state.data, { id: node.id });
     let updated = update(this.state, { data: { [editIdx]: { $set: node } } });
     this.setState(updated);
@@ -109,12 +102,14 @@ class Rorgchart extends React.Component {
       btnsClassName,
       lineColor,
       disableEditNodes,
+      onNodeClick,
     } = this.props;
 
     const { data } = this.state;
 
     return (
       <OrgChart
+        onNodeClick={onNodeClick}
         disableEditNodes={disableEditNodes}
         editable={!readonly}
         rootEditable={!disableRootEdit}
@@ -146,5 +141,6 @@ Rorgchart.propTypes = {
   btnsClassName: PropTypes.string,
   lineColor: PropTypes.string,
   disableEditNodes: PropTypes.bool,
+  onNodeClick: PropTypes.func,
 };
 export default Rorgchart;
