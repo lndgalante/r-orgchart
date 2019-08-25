@@ -268,7 +268,6 @@ class NodeBox extends Component {
           <div
             className={`node-box ${this.props.animation ? 'node-animation' : ''} ${nodeClassName}`}
             style={nodeStyle}
-            onClick={() => onNodeClick(node.id)}
           >
             {editable && (
               <div className={`org-node-btns ${btnsClassName}`} style={btnsStyle}>
@@ -289,7 +288,7 @@ class NodeBox extends Component {
               }
               className='node-name-box'
             >
-              <p className={`node-name ${onNodeClick ? 'node-clickable' : ''}`}>
+              <p className={`node-name ${onNodeClick ? 'node-clickable' : ''}`} onClick={() => onNodeClick(node.id)}>
                 {_.truncate(node.title, { length: 35, omission: ' ...' })}
               </p>
             </div>
