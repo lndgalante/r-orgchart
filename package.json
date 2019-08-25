@@ -31,7 +31,6 @@
     "webpack": "^2.6.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack --watch",
     "build": "webpack"
   },
@@ -46,5 +45,8 @@
     "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.11",
     "style-loader": "^0.20.3"
+  },
+  "np": {
+    "tests": false
   }
 }
