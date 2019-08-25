@@ -1,5 +1,5 @@
 {
-  "name": "r-orgchart",
+  "name": "@lndgalante/r-orgchart",
   "version": "0.0.6",
   "description": "R-orgchart is a simple library for displaying and creating orgcharts in React.",
   "keywords": [
@@ -15,7 +15,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kodbiro/r-orgchart.git"
+    "url": "git@github.com:lndgalante/r-orgchart.git"
   },
   "main": "build/index.js",
   "peerDependencies": {
