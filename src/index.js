@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import React, { Component } from 'react';
+import React from 'react';
 import update from 'react-addons-update';
 import PropTypes from 'prop-types';
 
