@@ -266,7 +266,9 @@ class NodeBox extends Component {
           </div>
         ) : (
           <div
-            className={`node-box ${this.props.animation ? 'node-animation' : ''} ${nodeClassName}`}
+            className={`node-box ${this.props.animation ? 'node-animation' : ''} ${nodeClassName} ${
+              node.hasChildrens ? 'has-childrens' : 'no-childrens'
+            }`}
             style={nodeStyle}
           >
             {editable && (

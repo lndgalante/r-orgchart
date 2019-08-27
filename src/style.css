@@ -34,16 +34,21 @@ div.org-chart-container table {
 }
 
 .org-chart-container table .node-box {
-  border: 2px solid #3c4355;
+  border: 1px solid #b4b4b4;
   background: #fff;
-  width: 120px;
-  height: 80px;
+  width: 110px;
+  height: 63px;
   padding: 5px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  border-radius: 6px;
+}
+
+.org-chart-container table .node-box.no-childrens {
+  border-style: dashed;
 }
 
 .org-chart-container table .node-box .node-name-box {
@@ -67,10 +72,11 @@ div.org-chart-container table {
   right: 0;
   left: 0;
   display: none;
-  width: 80px;
-  background-color: #4990c6;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #219bf6;
   margin: 0 auto;
-  border-radius: 3px;
 }
 
 .org-chart-container table .node-box .org-node-btns .icon {
@@ -83,16 +89,20 @@ div.org-chart-container table {
   opacity: 0.3;
 }
 
-.org-chart-container table .node-box:hover .org-node-btns {
-  display: block;
+.org-chart-container table .node-box.has-childrens:hover .org-node-btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .org-chart-container table .node-box.node-animation .org-node-btns {
-  display: block;
-  -webkit-animation: click-me-animation 1s infinite; /* Safari 4+ */
-  -moz-animation: click-me-animation 1s infinite; /* Fx 5+ */
-  -o-animation: click-me-animation 1s infinite; /* Opera 12+ */
-  animation: click-me-animation 1s infinite; /* IE 10+, Fx 29+ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-animation: click-me-animation 1.5s infinite ease-in-out; /* Safari 4+ */
+  -moz-animation: click-me-animation 1.5s infinite ease-in-out; /* Fx 5+ */
+  -o-animation: click-me-animation 1.5s infinite ease-in-out; /* Opera 12+ */
+  animation: click-me-animation 1.5s infinite ease-in-out; /* IE 10+, Fx 29+ */
 }
 
 .org-chart-container table .node-box textarea {
@@ -107,23 +117,23 @@ div.org-chart-container table {
 }
 
 .org-chart-container .top-line {
-  border-top: 2px solid #3c4355;
+  border-top: 2px solid #707174;
 }
 
 .org-chart-container .down-line {
-  border-left: 1px solid #3c4355;
-  border-right: 1px solid #3c4355;
+  border-left: 1px solid #707174;
+  border-right: 1px solid #707174;
   margin: 0 auto;
   width: 0px;
 }
 
 .org-chart-container .left-line {
-  border-left: 1px solid #3c4355;
+  border-left: 1px solid #707174;
   float: none;
   border-radius: 0;
 }
 .org-chart-container .right-line {
-  border-right: 1px solid #3c4355;
+  border-right: 1px solid #707174;
   float: none;
   border-radius: 0;
 }
@@ -133,8 +143,8 @@ div.org-chart-container table {
     box-shadow: none;
   }
   50% {
-    -webkit-box-shadow: 0 0 30px #d35400;
-    box-shadow: 0 0 30px #d35400;
+    -webkit-box-shadow: 0 0 10px #219bf6;
+    box-shadow: 0 0 10px #219bf6;
   }
   100% {
     box-shadow: none;
@@ -145,8 +155,8 @@ div.org-chart-container table {
     box-shadow: none;
   }
   50% {
-    -webkit-box-shadow: 0 0 30px #d35400;
-    box-shadow: 0 0 30px #d35400;
+    -webkit-box-shadow: 0 0 10px #219bf6;
+    box-shadow: 0 0 10px #219bf6;
   }
   100% {
     box-shadow: none;
@@ -157,8 +167,8 @@ div.org-chart-container table {
     box-shadow: none;
   }
   50% {
-    -webkit-box-shadow: 0 0 30px #d35400;
-    box-shadow: 0 0 30px #d35400;
+    -webkit-box-shadow: 0 0 10px #219bf6;
+    box-shadow: 0 0 10px #219bf6;
   }
   100% {
     box-shadow: none;
@@ -169,8 +179,8 @@ div.org-chart-container table {
     box-shadow: none;
   }
   50% {
-    -webkit-box-shadow: 0 0 30px #d35400;
-    box-shadow: 0 0 30px #d35400;
+    -webkit-box-shadow: 0 0 10px #219bf6;
+    box-shadow: 0 0 10px #219bf6;
   }
   100% {
     box-shadow: none;
